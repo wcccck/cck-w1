@@ -21,13 +21,13 @@ export class UserChat {
   }
   public send(msg:Message){
     this.msgs.push(msg)
-    msg.status = MessageStatus.SENDING
+    msg.status = MessageStatus.SENT
     msg.type = MessageType.SEND
   }
 
   public receive(msg:Message){
     this.msgs.push(msg)
-    msg.status = MessageStatus.RECEIVED
+    msg.status = MessageStatus.RECEIVING
     msg.type = MessageType.RECEIVED
   }
 

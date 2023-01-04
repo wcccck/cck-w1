@@ -1,11 +1,13 @@
 import express, { NextFunction,Request,Response } from 'express'
 import { Token } from './dao/Token'
-const app = express()
-
 
 import cookieParser from 'cookie-parser'
 import { AccountContext } from './context/AccountContext'
+import { ChatContext } from './context/ChatContext'
+import { Message } from '@huatian/model'
+const app = express()
 app.use(cookieParser())
+type LoggedInRequest = Request & {uid:number}
 
 async function sendStdResponse<T>(res:Response, f:T);
 async function sendStdResponse(res:Response, f:Promise<any>);
@@ -60,6 +62,28 @@ app.post('/token',express.json(),async(req,res)=>{
   res.cookie('x-token',tokenObject.token)
   sendStdResponse(res,"ok")  
 
+})
+
+app.post('/message',token,express.json(),async(req:LoggedInRequest,res)=>{
+  const uid = req.uid  
+  const chatContext = ChatContext.getInstance()
+
+  sendStdResponse(res,async ()=>{
+    await chatContext.send(uid,req.body as Message)
+  })
+})
+
+app.get('/message',token,async(req:LoggedInRequest,res)=>{
+  const uid = req.uid
+  const lastId = parseInt(req.query.last_id as string) || 0
+
+  console.log({uid,lastId});
+
+  const chatContext = ChatContext.getInstance()
+
+  sendStdResponse(res,()=>{
+    return chatContext.read(uid,lastId)
+  })
 })
 app.listen(6004,()=>{
   console.log("http://localhost:6004");
