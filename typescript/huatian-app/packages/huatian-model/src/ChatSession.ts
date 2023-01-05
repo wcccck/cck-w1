@@ -8,8 +8,8 @@ export class ChatSession{
     this.from = from
     this.to = to
   }
-  public chat(Msg:Message){
-    this.from.chat().send(Msg)
-    this.to.chat().receive(Msg)
+  public chat(sentMsg:Message,toReceiveMsg:Message){
+    this.from.chat().send(sentMsg)
+    this.to.chat().receive(toReceiveMsg)
   }
 }
