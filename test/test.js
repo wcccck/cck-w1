@@ -1,1 +1,0 @@
-console.log('cck1 project');
