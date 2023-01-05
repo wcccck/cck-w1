@@ -82,6 +82,7 @@ app.get('/message',token,async(req:LoggedInRequest,res)=>{
   const chatContext = ChatContext.getInstance()
 
   sendStdResponse(res,()=>{
+    console.log(chatContext.read(uid,lastId))
     return chatContext.read(uid,lastId)
   })
 })
