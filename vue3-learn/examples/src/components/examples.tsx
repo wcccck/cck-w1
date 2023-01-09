@@ -1,4 +1,4 @@
-import { defineComponent,ref } from "vue";
+import { defineComponent,reactive,ref } from "vue";
 
 export const com1 = defineComponent({
   setup(){
@@ -10,3 +10,15 @@ export const com1 = defineComponent({
   }
 })
 
+export const com2 = defineComponent({
+  setup(){
+    let num = reactive({
+      a:0,
+      b:9
+    })
+
+    return()=>{
+      return <h1></h1>
+    }
+  }
+})

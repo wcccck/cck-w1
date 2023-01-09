@@ -1,20 +1,22 @@
 import { createApp } from 'vue'
-
-import App from './App'
 import { createRouter,createWebHashHistory } from 'vue-router'
 import { myRouteType } from './myRouteType'
+import App from './App'
+
 import './components/index'
-const routes:myRouteType = []
+const routes:myRouteType[] = []
 
 const examples = import.meta.glob("./examples/**/*.tsx")
 const examplePrimise = Object.keys(examples) // get all key
 .map(x=>examples[x]) // use key get valueComponent
-.map(x=>x()) // call valueComponent function
-Promise.all(examplePrimise)
-  .then(list=>{
+.map(f=>f()) // call valueComponent function
+Promise.all(examplePrimise).then(list=>{
+
   for(let module of list){
+
     for (let key in module) {
       const Component = module[key]
+      // console.log(Component);
       routes.push({
         key,
         path:"/" + key.toLocaleLowerCase(),
@@ -22,7 +24,6 @@ Promise.all(examplePrimise)
       })
     }
   }
-  console.log(routes)
   const router = createRouter({
     history:createWebHashHistory(),
     routes
