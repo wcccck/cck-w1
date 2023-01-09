@@ -18,7 +18,7 @@ export const PrivideExamples01 = defineComponent({
   }
 })
 
-export const A = defineComponent({
+ const A = defineComponent({
   setup(){
     return ()=>{
       return <B/>
@@ -26,7 +26,7 @@ export const A = defineComponent({
   }
 })
 
-export const B = defineComponent({
+ const B = defineComponent({
   setup(){
     const theme = inject('theme') as ThemeType
     return ()=>{
@@ -70,7 +70,7 @@ export const ProvideExamples02 = defineComponent({
   },
 })
 
-export const Head = defineComponent({
+const Head = defineComponent({
   setup(){
     const user = inject('user') as User
     return ()=>{
