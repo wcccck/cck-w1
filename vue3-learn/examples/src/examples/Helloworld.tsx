@@ -1,3 +1,15 @@
+
+
 export const HelloWorld = () =>{
-  return <h1>HelloWorld !!</h1>
+  return <div>
+    {/* <Com1></Com1> */}
+    HelloWorld!!
+    
+  </div>
+}
+
+export const caonima = ()=>{
+  return <div>caonima
+    {/* <definTest></definTest> */}
+  </div>
 }

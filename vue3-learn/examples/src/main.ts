@@ -1,10 +1,8 @@
 import { createApp } from 'vue'
 import App from './App'
-import { RouteRecordRaw,createRouter,createWebHashHistory } from 'vue-router'
-
-type myRouteType = RouteRecordRaw & {
-  key:string
-}
+import { createRouter,createWebHashHistory } from 'vue-router'
+import { myRouteType } from './myRouteType'
+import './components/index'
 const routes:myRouteType = []
 
 const examples = import.meta.glob("./examples/**/*.tsx")
@@ -23,13 +21,14 @@ Promise.all(examplePrimise)
       })
     }
   }
+  console.log(routes)
   const router = createRouter({
     history:createWebHashHistory(),
     routes
   })
-  const app = createApp(App)
-  app.mount('#app')
+  const app = createApp(App,{routes})
   app.use(router)
+  app.mount('#app')
   
 })
 
