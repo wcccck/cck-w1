@@ -1,16 +1,28 @@
-import { RouterLink,RouterView } from "vue-router"
-import { myRouteType } from "./type"
-
-export default (props:{routes:myRouteType[]})=>{
-  return <div>welcome cck website    
-    <ul>
-    {props.routes.map((item)=>{
-      return <li key={item.key}>
-              <RouterLink to={item.path}>{item.key}</RouterLink>
-              </li>
-    })}
-    </ul>
+import './style.css'
+import {myRouteType} from './myRouteType'
+export default (props:{
+  routes:myRouteType[]
+})=>{
+  return <div>
+    <header>cck socialize websize</header>
+    <main>
+      <div class="left">
+        <ul>
+          {
+            props.routes.map(({key,path})=>{
+              return <li>
+                      <routerLink to={path}>{key}</routerLink>
+                      </li>
+            })
+          }
+        </ul>
+      </div>
+      <div class='right'>
+        <routerView></routerView>
+      </div>
+      
+    </main>
     
-    <RouterView></RouterView>
+    
   </div>
 }

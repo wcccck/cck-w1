@@ -1,12 +1,11 @@
 import { createApp } from 'vue'
-import {
-  createRouter,
-  createWebHashHistory,
-} from 'vue-router'
-import App from './App'
 
-import { myRouteType } from './type'
-const routes:myRouteType[] = []
+import App from './App'
+import { createRouter,createWebHashHistory } from 'vue-router'
+import { myRouteType } from './myRouteType'
+import './components/index'
+const routes:myRouteType = []
+
 const examples = import.meta.glob("./examples/**/*.tsx")
 const examplePrimise = Object.keys(examples) // get all key
 .map(x=>examples[x]) // use key get valueComponent
@@ -21,9 +20,9 @@ Promise.all(examplePrimise)
         path:"/" + key.toLocaleLowerCase(),
         component:Component
       })
-
     }
   }
+  console.log(routes)
   const router = createRouter({
     history:createWebHashHistory(),
     routes
@@ -31,5 +30,6 @@ Promise.all(examplePrimise)
   const app = createApp(App,{routes})
   app.use(router)
   app.mount('#app')
+  
 })
 
