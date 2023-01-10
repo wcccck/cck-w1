@@ -6,6 +6,7 @@ export const ScopeExamples01 = defineComponent({
     const scope = effectScope()
 
     scope.run(()=>{
+      
       watch(count,()=>{
         console.log('watch effct' + count.value)
       })
@@ -15,7 +16,7 @@ export const ScopeExamples01 = defineComponent({
     //   count.value ++
     // },300)
     setTimeout(()=>{
-      scope.stop()
+      scope.stop() // 3 seconde no update
     },3000)
     return ()=>{
       return <div>
