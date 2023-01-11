@@ -106,18 +106,25 @@ const Input = ({value}:{value:Ref<string>})=>{
 
 export const ComponentExamples06 = defineComponent({
   setup(props, ctx) {
-    const from = useFrom({
+    const {from} = useFrom({
       username:"bit"
     })
+    setTimeout(()=>{
+      from.username = 'electrion'
+    },2000)
 
     return ()=>{
-      return <div></div>
+      return <div>06<Input2 value={from.username} onChange={v=>{
+        from.username = v
+      }} /></div>
     }
   },
 })
 
-const Input2 = ({value}:{value:string})=>{
-  return <input value={value} />
+const Input2 = ({value,onChange}:
+  {value:string,onChange?:(k:string)=>void}
+  )=>{
+  return <input value={value}  onInput={(e)=>{onChange && onChange( (e.target as HTMLInputElement).value )}}/>
 }
 
 class From<T extends Record<string,any>> {
@@ -125,7 +132,7 @@ class From<T extends Record<string,any>> {
     [key:string] :any
   }){
   }
-  public getFieldValue(key:string){
+  public getValue(key:string){
     return this.data[key]
   }
   public setValue(key:string,value:any){
@@ -138,15 +145,17 @@ function useFrom<T extends Record<string,any>>(data:T){
   
   const proxy = new Proxy(from,{
     get(target,key){
-
+      // console.log(from.getValue(key as string))
+      return from.getValue(key as string)
     },
     set(target,key,value){
-
+      from.setValue(key as string,value)
+      return true
     }
   })
 
   return {
-    from:proxy as T
+    from:proxy as any as T
   }
 
 }
